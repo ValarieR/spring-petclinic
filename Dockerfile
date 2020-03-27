@@ -1,3 +1,5 @@
-FROM anapsix/alpine-java
-COPY /target/spring-petclinic-1.5.1.jar /home/spring-petclinic-1.5.1.jar 
-CMD ["java","-jar","/home/spring-petclinic-1.5.1.jar"]
+FROM maven:3.5-jdk-8-alpine
+WORKDIR /app
+COPY . /app
+RUN mvn clean install
+CMD ["java","-jar","/target.jar"]
