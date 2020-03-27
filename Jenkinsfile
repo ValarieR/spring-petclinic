@@ -4,12 +4,18 @@ pipeline {
     stage('Maven Install') {
       agent {         
        docker {          
-         image 'maven:3.5.0'         
+         image 'maven:3.6.3'         
      }       
   }       
   steps {
-       sh 'mvn clean install'
+       sh 'mvn package'
        }
      }
+     stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t valarier/spring-petclinic:testing .'
+      }
+    }
    }
  }
